@@ -25,12 +25,11 @@ jobs:
           python -m pytest
           --cov=src
           --cov-report=term-missing
-          --cov-report=markdown:coverage.md
           --cov-fail-under=85
 
       - name: Publish coverage report
         if: ${{ always() }}
         run: |
-          if [ -f coverage.md ]; then
-            cat coverage.md >> "$GITHUB_STEP_SUMMARY"
+          if [ -f .coverage ]; then
+            python -m coverage report -m >> "$GITHUB_STEP_SUMMARY"
           fi
